@@ -1,15 +1,22 @@
 //JSX - JavaScript + XML (HTML)
 //TSX - TypeScript + JSX
+interface HomeProps {
+  count: number;
+}
 
-import { Tweet } from "../components/Tweet";
-
-export default function Home() {
+export default function Home(props: HomeProps) {
   return (
-    <div>
-      <Tweet text="Meu primeiro tweet"/>
-      <Tweet text="Meu segundo tweet"/>
-      <Tweet text="Meu terceiro tweet"/>
-      <Tweet text="Meu quarto tweet"/>
-    </div>
+    <h1>Contagem: {props.count}</h1> 
   )
+}
+
+export const getServerSideProps = async () => {
+  const response = await fetch("http://localhost:3333/pools/count")
+  const data = await response.json()
+   
+  return {
+      props: {
+        count: data.count,
+      }
+  }
 }
