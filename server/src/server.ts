@@ -27,6 +27,20 @@ async function bootstrap() {
         return { count };
     });
 
+    fastify.get("/users/count", async () => {
+        //Fazendo a contagem de usuários
+        const count = await prisma.user.count();
+
+        return { count };
+    });
+
+    fastify.get("/guesses/count", async () => {
+        //Fazendo a contagem de palpites
+        const count = await prisma.guess.count();
+
+        return { count };
+    });
+
     //Rota para criar um bolão
     fastify.post("/pools", async (request, reply) => {
         //Validando campo title para que não seja null 
